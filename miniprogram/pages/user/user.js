@@ -1,5 +1,8 @@
-Component({
-  properties: {},
+const app = getApp()
+
+Page({
   data: {},
-  methods: {}
+  onLoad: function (options) {
+
+  }
 })

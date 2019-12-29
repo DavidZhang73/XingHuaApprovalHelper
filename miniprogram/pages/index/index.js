@@ -7,25 +7,22 @@ Page({
    */
   data: {
     user: {
-      name: '未登录',
-      avatarUrl: '../../images/user-unlogin.png',
-      type: null
+      name: null,
+      group: null
     },
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    if (!app.globalData.user.isLogin) {
-      wx.redirectTo({ url: '../login/login' })
-    }
+  onLoad: (options) => {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: () => {
 
   },
 
@@ -33,41 +30,77 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const user = app.globalData.user
+    if (user.isLogin) {
+      this.setData({
+        user: {
+          name: user.name,
+          group: user.group
+        }
+      })
+    } else {
+      wx.cloud.callFunction({
+        name: 'login'
+      })
+        .then(res => {
+          const name = res.result.name
+          const group = res.result.group
+          this.setData({
+            user: {
+              name: name,
+              group: group
+            }
+          })
+          app.globalData.user = {
+            isLogin: true,
+            name: name,
+            group: group
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          wx.showToast({
+            title: '请先注册',
+            icon: 'none',
+            duration: 1000
+          })
+          wx.navigateTo({ url: '../signup/signup' })
+        })
+    }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: () => {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: () => {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: () => {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: () => {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: () => {
 
   }
 })

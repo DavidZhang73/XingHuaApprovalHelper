@@ -17,10 +17,7 @@ App({
     this.globalData = {
       user: {
         isLogin: false,
-        openid: null,
         name: null,
-        avartarUrl: null,
-        phone: null,
         // admin管理员 applicant申请人 examiner审理人 applying申请中 disabled已禁用
         group: null
       }

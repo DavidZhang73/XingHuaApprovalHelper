@@ -1,23 +1,46 @@
 <view class="page">
   <view class="page__hd">
-    <navigator class="useravatar" hover-class="weui-cell_active" url="../user/user"
-            style="background-image: url({{user.avatarUrl}})"></navigator>
-    <view class="userinfo">欢迎，{{user.name}}</view>
+    <navigator
+            class="user-avatar"
+            hover-class="weui-cell_active"
+            url="../user/user"
+    >
+      <open-data class="user-avatar-url" type="userAvatarUrl" default-avatar="/images/default-avatar.png"></open-data>
+    </navigator>
+    <view class="userinfo" wx:if="{{user.name}}">欢迎，{{user.name}}</view>
+    <view class="userinfo" wx:else>未登录</view>
   </view>
-  <view class="page__bd">
+  <view class="page__bd" wx:if="{{user.name}}">
     <view class="weui-cells">
-      <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" url="/pages/application/application">
+      <navigator
+              class="weui-cell weui-cell_access"
+              hover-class="weui-cell_active"
+              url="/pages/application/application"
+              wx:if="{{user.group === 'admin' || user.group === 'applicant'}}"
+      >
         <view class="weui-cell__bd">我要申请</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
-      <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" url="/pages/applicationList/applicationList">
+      <navigator
+              class="weui-cell weui-cell_access"
+              hover-class="weui-cell_active"
+              url="/pages/applicationList/applicationList"
+              wx:if="{{user.group === 'admin' || user.group === 'applicant' || user.group === 'examiner'}}"
+      >
         <view class="weui-cell__bd">查看申请</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
-      <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" url="/pages/user/user">
+      <navigator
+              class="weui-cell weui-cell_access"
+              hover-class="weui-cell_active"
+              url="/pages/user/user"
+              wx:if="{{user.group === 'admin'}}"
+      >
         <view class="weui-cell__bd">用户管理</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
+      <text class="weui-cell tip" wx:if="{{user.group === 'applying'}}">您的账号正在等待管理员审核。</text>
+      <text class="weui-cell tip" wx:if="{{user.group === 'disabled'}}">您的账号已被禁用，请联系管理员。</text>
     </view>
   </view>
   <view class="page__ft">
