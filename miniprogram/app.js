@@ -1,4 +1,7 @@
 App({
+  /**
+   * 启动时
+   */
   onLaunch: function () {
 
     if (!wx.cloud) {
@@ -15,11 +18,33 @@ App({
     }
 
     this.globalData = {
-      user: {
-        isLogin: false,
-        name: null,
-        // admin管理员 applicant申请人 examiner审理人 applying申请中 disabled已禁用
-        group: null
+      _openid: null,
+      groupMap: {
+        admin: '管理员',
+        applicant: '申请人',
+        examiner: '审理人',
+        applying: '申请中',
+        disabled: '已禁用',
+      }
+    }
+  },
+  /**
+   * 获得openid
+   */
+  getOpenid: async function () {
+    if (this.globalData._openid) {
+      return this.globalData._openid
+    } else {
+      try {
+        const { result } = await wx.cloud.callFunction({
+          name: 'getOpenid'
+        })
+        const _openid = result.openid
+        this.globalData._openid = _openid
+        console.log('获得openid', _openid)
+        return _openid
+      } catch (e) {
+        console.log('无法连接到云服务器，错误 ' + e)
       }
     }
   }

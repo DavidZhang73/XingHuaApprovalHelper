@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "footer": "/components/footer/footer"
+    "footer": "/components/footer/footer",
+    "wux-toast": "/style/wux/toast/index"
   }
 }

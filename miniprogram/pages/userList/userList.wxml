@@ -1,7 +1,7 @@
 <view class="page">
   <view class="page__hd">
   userList
-</view>
+  </view>
   <view class="page__bd">
 
   </view>

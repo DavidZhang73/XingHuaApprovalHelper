@@ -1,11 +1,3 @@
-.page {
-  padding-top: 10%;
-}
-
-.page__hd {
-
-}
-
 .page__hd .user-avatar {
   width: 170rpx;
   height: 170rpx;
@@ -26,6 +18,3 @@
   padding-top: 10%;
 }
 
-.page__bd .tip {
-  text-align: center;
-}

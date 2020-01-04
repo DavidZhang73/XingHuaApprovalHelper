@@ -1,9 +1,53 @@
+<wux-toast id="wux-toast"/>
 <view class="page">
-  <view class="page__hd">
-  user
-</view>
   <view class="page__bd">
+    <wux-form id="wux-form">
+      <wux-cell-group>
+        <!--姓名-->
+        <wux-cell hover-class="none">
+          <wux-field name="name" initialValue="{{user.name}}">
+            <wux-input label="姓名" placeholder="请输入姓名" type="text" error="{{!isPhoneCorrect}}" focus="true"/>
+          </wux-field>
+        </wux-cell>
 
+        <!--手机-->
+        <wux-cell hover-class="none">
+          <wux-field name="phone" initialValue="{{user.phone}}">
+            <wux-input label="手机" placeholder="请输入手机号" type="number" error="{{!isPhoneCorrect}}"/>
+          </wux-field>
+        </wux-cell>
+
+        <!--用户组-->
+        <wux-field name="group" initialValue="{{user.group}}" wx:if="{{user.group === 'admin'}}">
+          <wux-picker options="{{groupOptions}}" bind:valueChange="onGroupChange">
+            <wux-cell hover-class="none" title="用户组" is-link extra="{{groupMap[groupOption]}}">
+            </wux-cell>
+          </wux-picker>
+        </wux-field>
+        <wux-cell hover-class="none" wx:else>
+          <wux-field initialValue="{{groupMap[user.group]}}">
+            <wux-input label="用户组" disabled="true"/>
+          </wux-field>
+        </wux-cell>
+
+        <!--注册日期-->
+        <wux-cell hover-class="none">
+          <wux-field initialValue="{{user.joinDate}}">
+            <wux-input label="注册日期" disabled="true"/>
+          </wux-field>
+        </wux-cell>
+
+        <!--OpenID-->
+        <wux-cell hover-class="none" wx:if="{{user.group === 'admin'}}">
+          <wux-field initialValue="{{user.openid}}">
+            <wux-input label="OpenID" disabled="true"/>
+          </wux-field>
+        </wux-cell>
+        <wux-cell bindtap="onSubmit">
+          <view class="wux-text--center">更改</view>
+        </wux-cell>
+      </wux-cell-group>
+    </wux-form>
   </view>
   <view class="page__ft">
     <footer></footer>

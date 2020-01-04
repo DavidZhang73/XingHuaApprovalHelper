@@ -1,0 +1,5 @@
+<view class="wux-class {{ wrapCls }} {{ animateCss }}" bindtap="onTap" catchtouchmove="{{ disableScroll ? 'noop' : '' }}"
+        bindtransitionend="onTransitionEnd" bindanimationend="onAnimationEnd" wx:if="{{ animateStatus !== 'unmounted' }}"
+        style="{{ extStyle }}">
+  <slot></slot>
+</view>

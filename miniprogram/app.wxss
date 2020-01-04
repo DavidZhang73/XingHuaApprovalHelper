@@ -1,7 +1,15 @@
 @import 'style/weui.wxss';
 
+@import 'style/wux/styles/index.wxss';
+
 page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
+  background-color: #F8F8F8;
 }
+
+.page {
+  padding-top: 10%;
+}
+

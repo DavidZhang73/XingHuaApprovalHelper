@@ -1,5 +1,12 @@
 {
   "usingComponents": {
-    "footer": "/components/footer/footer"
+    "footer": "/components/footer/footer",
+    "wux-toast": "/style/wux/toast/index",
+    "wux-cell-group": "/style/wux/cell-group/index",
+    "wux-cell": "/style/wux/cell/index",
+    "wux-form": "/style/wux/form/index",
+    "wux-field": "/style/wux/field/index",
+    "wux-input": "/style/wux/input/index",
+    "wux-picker": "/style/wux/picker/index"
   }
 }

@@ -1,3 +1,4 @@
+<wux-toast id="wux-toast"/>
 <view class="page">
   <view class="page__bd">
     <form class="weui-form" bindsubmit="onSubmit">
@@ -10,7 +11,7 @@
           <view class="weui-cells weui-cells_form">
             <view class="weui-cell">
               <view class="weui-cell__hd">
-                <label class="weui-label">姓名</label>
+                <view class="weui-label">姓名</view>
               </view>
               <view class="weui-cell__bd">
                 <input class="weui-input" name="name" type="text" placeholder="请输入姓名" focus="true"/>
@@ -21,7 +22,7 @@
             </view>
             <view class="weui-cell">
               <view class="weui-cell__hd">
-                <label class="weui-label">手机</label>
+                <view class="weui-label">手机</view>
               </view>
               <view class="weui-cell__bd">
                 <input class="weui-input"

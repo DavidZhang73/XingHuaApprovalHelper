@@ -1,5 +1,8 @@
 {
   "usingComponents": {
-    "footer": "/components/footer/footer"
+    "footer": "/components/footer/footer",
+    "wux-cell-group": "/style/wux/cell-group/index",
+    "wux-cell": "/style/wux/cell/index",
+    "wux-toast": "/style/wux/toast/index"
   }
 }
