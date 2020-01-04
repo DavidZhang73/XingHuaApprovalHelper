@@ -6,7 +6,7 @@
         <!--姓名-->
         <wux-cell hover-class="none">
           <wux-field name="name" initialValue="{{user.name}}">
-            <wux-input label="姓名" placeholder="请输入姓名" type="text" error="{{!isPhoneCorrect}}" focus="true"/>
+            <wux-input label="姓名" placeholder="请输入姓名" type="text" error="{{!isPhoneCorrect}}"/>
           </wux-field>
         </wux-cell>
 
@@ -18,8 +18,9 @@
         </wux-cell>
 
         <!--用户组-->
-        <wux-field name="group" initialValue="{{user.group}}" wx:if="{{user.group === 'admin'}}">
-          <wux-picker options="{{groupOptions}}" bind:valueChange="onGroupChange">
+        <wux-field wx:if="{{currentGroup === 'admin'}}">
+          <!--TODO: 默认状态下（第一次打开picker）不能选择管理员-->
+          <wux-picker options="{{groupOptions}}" bind:confirm="onGroupConfirm">
             <wux-cell hover-class="none" title="用户组" is-link extra="{{groupMap[groupOption]}}">
             </wux-cell>
           </wux-picker>
@@ -38,7 +39,7 @@
         </wux-cell>
 
         <!--OpenID-->
-        <wux-cell hover-class="none" wx:if="{{user.group === 'admin'}}">
+        <wux-cell hover-class="none" wx:if="{{currentGroup === 'admin'}}">
           <wux-field initialValue="{{user.openid}}">
             <wux-input label="OpenID" disabled="true"/>
           </wux-field>

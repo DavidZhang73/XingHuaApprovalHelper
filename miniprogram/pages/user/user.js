@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    options: null,
     user: {
       name: null,
       phone: null,
@@ -16,9 +17,10 @@ Page({
     groupOptions: null,
     groupOption: null,
     isNameCorrect: true,
-    isPhoneCorrect: true
+    isPhoneCorrect: true,
+    currentGroup: null
   },
-  onLoad: function () {
+  onLoad: async function (options) {
     const groupMap = app.globalData.groupMap
     let groupOptions = []
     for (let key in groupMap) {
@@ -28,13 +30,24 @@ Page({
       })
     }
     this.setData({
+      options: options,
       groupMap: groupMap,
       groupOptions: groupOptions
+    })
+    // 获取当前用户组
+    const db = wx.cloud.database()
+    const openid = await app.getOpenid()
+    const { data } = await db.collection('user').where({
+      _openid: openid
+    }).get()
+    const currentUser = data[0]
+    this.setData({
+      currentGroup: currentUser.group
     })
   },
   onShow: async function (options) {
     const db = wx.cloud.database()
-    const openid = await app.getOpenid()
+    const openid = await this.getOpenid()
     try {
       const { data } = await db.collection('user').where({
         _openid: openid
@@ -59,37 +72,52 @@ Page({
     const fields = getFieldsValue()
     const name = fields['name']
     const phone = fields['phone']
-    const group = fields['group'][0]
-    console.log('here', group)
     this.setData({
       isNameCorrect: !!name,
       isPhoneCorrect: !!phone
     })
     if (this.data.isNameCorrect && this.data.isPhoneCorrect) {
       try {
-        const db = wx.cloud.database()
-        const openid = await app.getOpenid()
-        db.collection('user').where({
-          _openid: openid
-        }).update({
+        let data = {
+          name: name,
+          phone: phone
+        }
+        if (this.data.currentGroup === 'admin') {
+          data.group = this.data.groupOption
+        }
+        const openid = await this.getOpenid()
+        await wx.cloud.callFunction({
+          name: 'updateUser',
           data: {
-            name: name,
-            phone: phone,
-            group: group
+            openid: openid,
+            data: data
           }
         })
         $wuxToast().success('更新成功').then(() => {
           wx.navigateBack()
         })
       } catch (e) {
+        $wuxToast().success(e)
         console.log(e)
       }
     }
   },
-  onGroupChange: function (e) {
+  onGroupConfirm: function (e) {
     const { detail } = e
     this.setData({
-      groupOption: detail.selectedValue
+      groupOption: detail.selectedValue[0]
     })
+  },
+  /**
+   * 获得当前要显示的用户对应的openid，如果url中没有指定，则返回当前用户openid
+   */
+  getOpenid: async function () {
+    let openid
+    if (this.data.options._openid) {
+      openid = this.data.options._openid
+    } else {
+      openid = await app.getOpenid()
+    }
+    return openid
   }
 })
