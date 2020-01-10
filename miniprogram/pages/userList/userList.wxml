@@ -1,17 +1,21 @@
 <view class="page">
-  <view class="page__bd">
-    <wux-cell-group title="用户列表" label="共 {{userList.length}} 个">
-      <wux-cell
-              wx:for="{{userList}}"
-              wx:key="_openid"
-              title="{{item.name}}"
-              is-link
-              extra="{{groupMap[item.group]}}"
-              url="/pages/user/user?_openid={{item._openid}}"
-      ></wux-cell>
-    </wux-cell-group>
-  </view>
-  <view class="page__ft">
-    <footer></footer>
-  </view>
+    <view class="page__bd">
+        <wux-cell-group title="用户列表" label="共 {{userList.length}} 个">
+            <wux-cell
+                    wx:for="{{userList}}"
+                    wx:key="_openid"
+                    title="{{item.name}}"
+                    is-link
+                    extra="{{groupMap[item.group]}}"
+                    url="/pages/user/user?_openid={{item._openid}}"
+            ></wux-cell>
+        </wux-cell-group>
+        <wux-pagination current="{{current}}" total="{{pageCount}}" mode="button" controlled bind:change="onPageChange">
+            <view slot="prev">上一页</view>
+            <view slot="next">下一页</view>
+        </wux-pagination>
+    </view>
+    <view class="page__ft">
+        <footer></footer>
+    </view>
 </view>

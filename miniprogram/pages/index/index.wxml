@@ -1,52 +1,52 @@
 <wux-toast id="wux-toast"/>
 <view class="page">
-  <view class="page__hd">
-    <navigator
-            class="user-avatar"
-            hover-class="weui-cell_active"
-            url="/pages/user/user"
-            wx:if="{{user.name}}"
-    >
-      <open-data type="userAvatarUrl" default-avatar="/images/default-avatar.png"></open-data>
-    </navigator>
-    <view class="user-avatar" wx:else>
-      <open-data class="user-avatar" type="userAvatarUrl" default-avatar="/images/default-avatar.png"></open-data>
+    <view class="page__hd">
+        <navigator
+                class="user-avatar"
+                hover-class="weui-cell_active"
+                url="/pages/user/user"
+                wx:if="{{user.name}}"
+        >
+            <open-data type="userAvatarUrl" default-avatar="/images/default-avatar.png"></open-data>
+        </navigator>
+        <view class="user-avatar" wx:else>
+            <open-data class="user-avatar" type="userAvatarUrl" default-avatar="/images/default-avatar.png"></open-data>
+        </view>
+        <view class="userinfo" wx:if="{{user.name}}">欢迎，{{user.name}}</view>
+        <view class="userinfo" wx:else>未登录</view>
     </view>
-    <view class="userinfo" wx:if="{{user.name}}">欢迎，{{user.name}}</view>
-    <view class="userinfo" wx:else>未登录</view>
-  </view>
-  <view class="page__bd" wx:if="{{user.name}}">
-    <wux-cell-group>
-      <wux-cell
-              title="我要申请"
-              is-link url="/pages/application/application"
-              wx:if="{{user.group === 'admin' || user.group === 'applicant'}}"
-      ></wux-cell>
-      <wux-cell
-              title="查看申请"
-              is-link url="/pages/applicationList/applicationList"
-              wx:if="{{user.group === 'admin' || user.group === 'applicant' || user.group === 'examiner'}}"
-      ></wux-cell>
-      <wux-cell
-              title="用户管理"
-              is-link url="/pages/userList/userList"
-              wx:if="{{user.group === 'admin'}}"
-      ></wux-cell>
-      <wux-cell
-              title="您的账号正在等待管理员审核。"
-              disabled="true"
-              wx:if="{{user.group === 'applying'}}"
-      ></wux-cell>
-      <wux-cell
-              class="wux-assertive"
-              title="您的账号已被禁用，请联系管理员。"
-              disabled="true"
-              wx:if="{{user.group === 'disabled'}}"
-      ></wux-cell>
-    </wux-cell-group>
-  </view>
+    <view class="page__bd" wx:if="{{user.name}}">
+        <wux-cell-group>
+            <wux-cell
+                    title="我要申请"
+                    is-link url="/pages/applicationNew/applicationNew"
+                    wx:if="{{user.group === 'admin' || user.group === 'applicant'}}"
+            ></wux-cell>
+            <wux-cell
+                    title="查看申请"
+                    is-link url="/pages/applicationList/applicationList"
+                    wx:if="{{user.group === 'admin' || user.group === 'applicant' || user.group === 'examiner'}}"
+            ></wux-cell>
+            <wux-cell
+                    title="用户管理"
+                    is-link url="/pages/userList/userList"
+                    wx:if="{{user.group === 'admin'}}"
+            ></wux-cell>
+            <wux-cell
+                    title="您的账号正在等待管理员审核。"
+                    disabled="true"
+                    wx:if="{{user.group === 'applying'}}"
+            ></wux-cell>
+            <wux-cell
+                    class="wux-assertive"
+                    title="您的账号已被禁用，请联系管理员。"
+                    disabled="true"
+                    wx:if="{{user.group === 'disabled'}}"
+            ></wux-cell>
+        </wux-cell-group>
+    </view>
 
-  <view class="page__ft">
-    <footer></footer>
-  </view>
+    <view class="page__ft">
+        <footer></footer>
+    </view>
 </view>

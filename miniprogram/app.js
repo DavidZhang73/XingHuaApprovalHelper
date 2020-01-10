@@ -25,7 +25,8 @@ App({
         examiner: '审理人',
         applying: '申请中',
         disabled: '已禁用',
-      }
+      },
+      statusMap: {},
     }
   },
   /**
@@ -37,7 +38,7 @@ App({
     } else {
       try {
         const { result } = await wx.cloud.callFunction({
-          name: 'getOpenid'
+          name: 'getOpenid',
         })
         const _openid = result.openid
         this.globalData._openid = _openid
@@ -47,5 +48,5 @@ App({
         console.log('无法连接到云服务器，错误 ' + e)
       }
     }
-  }
+  },
 })

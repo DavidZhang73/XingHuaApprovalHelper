@@ -6,7 +6,7 @@ Page({
 
   data: {
     isNameCorrect: true,
-    isPhoneCorrect: true
+    isPhoneCorrect: true,
   },
 
   onSubmit: async function (e) {
@@ -15,14 +15,14 @@ Page({
     // check fields
     this.setData({
         isNameCorrect: !!name,
-        isPhoneCorrect: !!phone
-      }
+        isPhoneCorrect: !!phone,
+      },
     )
     if (this.data.isNameCorrect && this.data.isPhoneCorrect) {
       const db = wx.cloud.database()
       try {
         const { total } = await db.collection('user').where({
-          _openid: app.globalData._openid
+          _openid: app.globalData._openid,
         }).count()
         if (total) {
           $wuxToast().warning('您已注册').then(() => {
@@ -34,16 +34,16 @@ Page({
               name: name,
               phone: phone,
               group: 'applying',
-              join_date: new Date()
-            }
+              join_date: new Date(),
+            },
           })
           $wuxToast().success('注册成功').then(() => {
             wx.navigateBack()
           })
         }
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }
-  }
+  },
 })

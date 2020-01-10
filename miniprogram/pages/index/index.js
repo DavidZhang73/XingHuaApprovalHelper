@@ -6,7 +6,7 @@ Page({
   data: {
     user: {
       name: null,
-      group: null
+      group: null,
     },
   },
   onShow: async function () {
@@ -14,7 +14,7 @@ Page({
     try {
       const openid = await app.getOpenid()
       const { data } = await db.collection('user').where({
-        _openid: openid
+        _openid: openid,
       }).get()
       if (data.length === 0) {
         $wuxToast().warning('请先登录').then(() => {
@@ -25,12 +25,12 @@ Page({
         this.setData({
           user: {
             name: user.name,
-            group: user.group
-          }
+            group: user.group,
+          },
         })
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
-  }
+  },
 })

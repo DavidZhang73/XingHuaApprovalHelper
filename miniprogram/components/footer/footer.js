@@ -1,5 +1,5 @@
 Component({
   properties: {},
   data: {},
-  methods: {}
+  methods: {},
 })

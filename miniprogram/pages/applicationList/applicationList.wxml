@@ -1,11 +1,22 @@
 <view class="page">
-  <view class="page__hd">
-  applicationList
-</view>
-  <view class="page__bd">
-
-  </view>
-  <view class="page__ft">
-    <footer></footer>
-  </view>
+    <view class="page__bd">
+        <wux-cell-group title="申请列表" label="共 {{applicationList.length}} 个">
+            <wux-cell
+                    wx:for="{{applicationList}}"
+                    wx:key="_id"
+                    title="{{item.title}}"
+                    label="{{item.user.name}}"
+                    is-link
+                    extra="{{item.status}}"
+                    url="/pages/application/application?_openid={{item._id}}"
+            ></wux-cell>
+        </wux-cell-group>
+        <wux-pagination current="{{current}}" total="{{pageCount}}" mode="button" controlled bind:change="onPageChange">
+            <view slot="prev">上一页</view>
+            <view slot="next">下一页</view>
+        </wux-pagination>
+    </view>
+    <view class="page__ft">
+        <footer></footer>
+    </view>
 </view>

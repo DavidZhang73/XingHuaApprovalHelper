@@ -5,12 +5,12 @@ cloud.init()
 exports.main = async (event, context) => {
   const {
     openid,
-    data
+    data,
   } = event
   const db = cloud.database()
   return await db.collection('user').where({
-    _openid: openid
+    _openid: openid,
   }).update({
-    data: data
+    data: data,
   })
 }

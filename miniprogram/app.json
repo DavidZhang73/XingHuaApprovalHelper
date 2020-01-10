@@ -5,6 +5,7 @@
     "pages/user/user",
     "pages/userList/userList",
     "pages/application/application",
+    "pages/applicationNew/applicationNew",
     "pages/applicationList/applicationList"
   ],
   "window": {
